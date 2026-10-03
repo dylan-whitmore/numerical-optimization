@@ -16,12 +16,7 @@ def bisect(h, a, b, delta):
 
 
 def _trust_region_step(g, H, Delta, delta=1e-10):
-    """Solve min_s g.s + 0.5 s.H.s  subject to ||s|| <= Delta.
-
-    Uses an eigendecomposition of H. If H is positive definite and the Newton
-    step fits in the region, take it. Otherwise find lambda >= max(0, -lambda_min)
-    with ||(H + lambda I)^{-1} g|| = Delta by bisection.
-    """
+    """Solve min_s g.s + 0.5 s.H.s  subject to ||s|| <= Delta."""
     vals, vecs = np.linalg.eigh(H)
     gt = vecs.T @ g
 
