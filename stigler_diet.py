@@ -1,6 +1,6 @@
-"""Stigler's diet problem (46-food subset) with the barrier interior-point method.
+"""Stigler's diet problem with the barrier interior-point method.
 
-minimize    total spending  (each food's data is per $1 spent)
+minimize total spending 
 subject to  nutrient intake >= daily requirement,  spending >= 0
 """
 
@@ -13,7 +13,6 @@ import matplotlib.pyplot as plt
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from optlib import interior_point
 
-# Stigler (1945) data, via Google OR-Tools. Columns after name/unit/price:
 # calories, protein, calcium, iron, vitamin A, B1, B2, niacin, vitamin C
 nutrients = [
     ["Calories (kcal)", 3], ["Protein (g)", 70], ["Calcium (g)", 0.8],
