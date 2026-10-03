@@ -1,4 +1,4 @@
-"""Sparse signal recovery with lasso, solved by ADMM (with an inner FISTA solver)."""
+""" signal recovery with lasso, solved by ADMM with an inner FISTA solver."""
 
 import os
 import sys
