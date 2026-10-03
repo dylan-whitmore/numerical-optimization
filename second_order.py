@@ -29,7 +29,7 @@ def _trust_region_step(g, H, Delta, delta=1e-10):
             return s
 
     lam_lo = max(0.0, -vals[0]) + 1e-12
-    # ||s(lam)|| is decreasing in lam; find an upper bracket
+
     lam_hi = lam_lo + 1.0
     while np.linalg.norm(step(lam_hi)) > Delta:
         lam_hi *= 2.0
@@ -74,7 +74,7 @@ def trust_region_newton(f, grad, hess, x0, Delta0=1.0, T=200, tol=1e-8,
 
 
 def weak_wolfe(f, grad, x, p, c1=1e-4, c2=0.9, alpha0=1.0, maxiter=60):
-    """Bracketing line search for a step satisfying the weak Wolfe conditions."""
+    """ line search for a step satisfying the weak Wolfe conditions."""
     phi0 = f(x)
     der0 = grad(x) @ p
     if der0 >= 0:
@@ -113,7 +113,7 @@ def bfgs(f, grad, x0, c1=1e-4, c2=0.9, T=200, tol=1e-8, alpha0=1.0):
         yk = grad(x_new) - gk
 
         sy = sk @ yk
-        if sy > 1e-12:   # the Wolfe conditions guarantee this in exact arithmetic
+        if sy > 1e-12:   
             rho = 1.0 / sy
             Hk = (I - rho * np.outer(sk, yk)) @ Hk @ (I - rho * np.outer(yk, sk)) \
                 + rho * np.outer(sk, sk)
