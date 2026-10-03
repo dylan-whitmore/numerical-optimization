@@ -2,8 +2,8 @@
 
     minimize ||A x - b||_2^2 + lam * ||x||_1
 
-using the splitting y = A x - b. The x-update is itself a lasso-type problem,
-solved with FISTA (accelerated proximal gradient).
+using the splitting y = A x - b. The x-update is 
+solved with FISTA.
 """
 
 import numpy as np
@@ -42,7 +42,7 @@ def fista(A, d, rho, lam, x0, L, max_iters=200, tol=1e-8):
 
 
 def admm_lasso(A, b, lam, rho=1.0, max_iters=500, tol=1e-6):
-    """Returns the estimate and the primal / dual residual norm histories."""
+    """Returns the estimate and the primal, dual residual norm histories."""
     m, n = A.shape
     L = rho * spectral_norm(A) ** 2
     x = np.zeros(n)
