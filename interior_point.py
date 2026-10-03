@@ -13,9 +13,7 @@ def _barrier(x, s, c, mu):
 
 def interior_point(A, b, c, x0, mus=None, tol=1e-8, max_newton_iters=80, reg=1e-10):
     """Solve a sequence of log-barrier subproblems with damped Newton steps.
-
-    x0 must be strictly feasible (x0 > 0 and A x0 > b). Returns the final
-    iterate and, for each barrier parameter mu, the Newton-step gradient norms.
+    Returns the final iterate and for each barrier parameter mu, the Newton-step gradient norms.
     """
     m, n = A.shape
     x = np.array(x0, dtype=float)
@@ -38,7 +36,7 @@ def interior_point(A, b, c, x0, mus=None, tol=1e-8, max_newton_iters=80, reg=1e-
             H = np.diag(mu / x**2) + mu * (A.T * (1.0 / s**2)) @ A + reg * np.eye(n)
             p = np.linalg.solve(H, -grad)
 
-            # backtracking line search that keeps the iterate strictly feasible
+            # backtracking line search keeps the iterate strictly feasible
             t, f0 = 1.0, _barrier(x, s, c, mu)
             while t > 1e-16:
                 x_new = x + t * p
@@ -48,7 +46,7 @@ def interior_point(A, b, c, x0, mus=None, tol=1e-8, max_newton_iters=80, reg=1e-
                     break
                 t *= 0.5
             else:
-                break   # no acceptable step; move to the next mu
+                break   # no step; move to the next mu
             x = x_new
         history[mu] = np.array(grads)
     return x, history
